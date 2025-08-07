@@ -1,0 +1,35 @@
+{
+  "General": [
+    {
+      "title": "Welcome to Information Library",
+      "content": "This is your personal knowledge base. Use it to store and organize information, articles, links, and notes.\n\nYou can create different categories, add entries with rich text content, and search across your entire library.",
+      "tags": [
+        "welcome",
+        "introduction"
+      ],
+      "url": "",
+      "date_added": "2025-04-06 21:40:54",
+      "date_modified": "2025-04-06 21:40:54",
+      "id": "g1",
+      "parent_id": null
+    },
+    {
+      "title": "Getting Started Guide",
+      "content": "Here's how to use the Information Library:\n\n1. Create categories to organize your information\n2. Add entries to each category\n3. Tag your entries for easier searching\n4. Use the search bar to find information across all categories\n5. Import content from files or websites\n6. Export your library in various formats",
+      "tags": [
+        "guide",
+        "help"
+      ],
+      "url": "",
+      "date_added": "2025-04-06 21:40:54",
+      "date_modified": "2025-04-06 21:40:54",
+      "id": "g2",
+      "parent_id": null
+    }
+  ],
+  "Technical": [],
+  "Business": [],
+  "Design": [],
+  "Marketing": [],
+  "Development": []
+}

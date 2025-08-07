@@ -1,0 +1,64 @@
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ignore virtual environment folders
+venv/
+*/venv/
+.venv/
+*/.venv/
+ENV/
+*/ENV/
+env/
+*/env/
+ENV/
+*/ENV/
+
+# Ignore distribution / build directories
+.eggs/
+*.egg-info/
+dist/
+build/
+develop-eggs/
+parts/
+sdist/
+var/
+wheels/
+*.egg
+lib/
+lib64/
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE / Editor specific files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.project
+.pydevproject
+.settings/
+.cursor/
+
+# Ignore data files (Optional - uncomment if you DON'T want data in git)
+# data/
+# *.json
+# *.txt
+# *.docx
+# *.pdf
+
+# Ignore log files
+*.log
+
+# Ignore sensitive files (add any specific ones)
+# secrets.yaml
+# *.env
+
+# Ignore generated files (add specific patterns)
+# output/
+
+# Ignore specific user files if needed
+# data/other_user_files/* 

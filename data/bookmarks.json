@@ -1,0 +1,128 @@
+[
+    {
+        "title": "Grok3",
+        "url": "https://grok.com/",
+        "description": "AI",
+        "color": "#550000",
+        "created": "2025-04-20 18:17:59"
+    },
+    {
+        "title": "google",
+        "url": "www.google.com",
+        "description": "google",
+        "color": "#55aa7f",
+        "created": "2025-04-20 18:17:59"
+    },
+    {
+        "title": "Facebook",
+        "url": "https://www.facebook.com",
+        "description": "FB",
+        "color": "#55ff7f",
+        "created": "2025-04-20 18:17:59"
+    },
+    {
+        "title": "piratebay",
+        "url": "https://tpb.proxyninja.org/",
+        "description": "",
+        "color": "#FFFFFF",
+        "created": "2025-04-20 18:17:59"
+    },
+    {
+        "title": "leonardo.ai",
+        "url": "https://app.leonardo.ai/image-generation",
+        "description": "",
+        "color": "#FFFFFF",
+        "created": "2025-04-20 20:41:46"
+    },
+    {
+        "title": "Pykaso",
+        "url": "https://app.pykaso.ai/ai-image-generator",
+        "description": "",
+        "color": "#FFFFFF",
+        "created": "2025-04-21 19:20:23"
+    },
+    {
+        "title": "DubDub",
+        "url": "https://app.dupdub.com/tools/article?wn=cHVyZW9maGVhcnRpbmR1c2l0ZXNAZ21haWwuY29t",
+        "description": "Voice overs",
+        "color": "#FFFFFF",
+        "created": "2025-04-21 19:21:10"
+    },
+    {
+        "title": "ChatGPT",
+        "url": "https://chatgpt.com/",
+        "description": "",
+        "color": "#FFFFFF",
+        "created": "2025-04-21 19:22:04"
+    },
+    {
+        "title": "KlingAI",
+        "url": "https://app.klingai.com/",
+        "description": "",
+        "color": "#FFFFFF",
+        "created": "2025-04-21 19:22:38"
+    },
+    {
+        "title": "AI Influncer Prompts",
+        "url": "https://prompthero.com/flux-prompts",
+        "description": "",
+        "color": "#FFFFFF",
+        "created": "2025-05-15 00:24:32"
+    },
+    {
+        "title": "Image to Prompt",
+        "url": "https://imageprompt.org/image-to-prompt",
+        "description": "",
+        "color": "#FFFFFF",
+        "created": "2025-05-15 00:28:40"
+    },
+    {
+        "title": "https://www.aixploria.com/en/ultimate-list-ai/",
+        "url": "https://www.aixploria.com/en/ultimate-list-ai/",
+        "description": "",
+        "color": "#FFFFFF",
+        "created": "2025-05-15 11:01:08"
+    },
+    {
+        "title": "https://www.aixploria.com/en/gpts-list-ai-directory/",
+        "url": "https://www.aixploria.com/en/gpts-list-ai-directory/",
+        "description": "",
+        "color": "#FFFFFF",
+        "created": "2025-05-15 11:01:33"
+    },
+    {
+        "title": "https://www.aixploria.com/en/top-100-ai/",
+        "url": "https://www.aixploria.com/en/top-100-ai/",
+        "description": "",
+        "color": "#FFFFFF",
+        "created": "2025-05-15 11:03:55"
+    },
+    {
+        "title": "https://www.aixploria.com/en/best-youtube-videos-about-ai/",
+        "url": "https://www.aixploria.com/en/best-youtube-videos-about-ai/",
+        "description": "",
+        "color": "#FFFFFF",
+        "created": "2025-05-15 11:04:25"
+    },
+    {
+        "title": "https://www.aixploria.com/en/category/prompts-help/page/2/",
+        "url": "https://www.aixploria.com/en/category/prompts-help/page/2/",
+        "description": "",
+        "color": "#FFFFFF",
+        "created": "2025-05-15 11:04:38"
+    },
+    {
+        "title": "https://www.howtoleverageai.com/midjourney-sticker-prompt-generator",
+        "url": "https://www.howtoleverageai.com/midjourney-sticker-prompt-generator",
+        "description": "",
+        "color": "#FFFFFF",
+        "created": "2025-05-15 11:04:57"
+    },
+    {
+        "title": "https://kosuket-dev.github.io/ChatGPT-Prompt-Generator/",
+        "url": "https://kosuket-dev.github.io/ChatGPT-Prompt-Generator/",
+        "description": "",
+        "color": "#FFFFFF",
+        "created": "2025-05-15 11:05:15"
+    }
+]

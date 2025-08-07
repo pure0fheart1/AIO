@@ -1,0 +1,12 @@
+# Netscape HTTP Cookie File
+.facebook.com	TRUE	/	TRUE	1778244270	datr	EoTuZ6D_Byy46RtkWOexXzxN
+.facebook.com	TRUE	/	TRUE	1744289102	locale	en_US
+.facebook.com	TRUE	/	TRUE	1775220334	c_user	625560278
+.facebook.com	TRUE	/	TRUE	1778244334	sb	EoTuZyGFe8Zd8hC4qgT3_gog
+.facebook.com	TRUE	/	TRUE	1775220334	xs	46%3An9kRtiQR0qId_w%3A2%3A1743684687%3A-1%3A2811
+.facebook.com	TRUE	/	TRUE	1751460342	fr	0IFTPBJsuJSm3DOyf.AWf195oRkDg4o3sbJt7z8ZcE0-9BhMhkLCcGlRNtg3iOUzd6yOk.Bn7oQS..AAA.0.0.Bn7oRa.AWcMInW2hfeFc-3Mbb-lhcD_sRg
+.facebook.com	TRUE	/	TRUE	1778244639	ps_l	1
+.facebook.com	TRUE	/	TRUE	1778244639	ps_n	1
+.facebook.com	TRUE	/	TRUE	1744289440	wd	2071x1327
+.facebook.com	TRUE	/	TRUE	0	presence	C%7B%22t3%22%3A%5B%5D%2C%22utc3%22%3A1743684641773%2C%22v%22%3A1%7D
+www.facebook.com	TRUE	/	FALSE	0	https://www.facebook.com/	
