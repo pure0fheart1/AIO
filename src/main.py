@@ -52,6 +52,7 @@ try:
     from ui.text_to_audio import TextToAudioWidget
     from ui.projects_page import ProjectPage
     from ui.script_prompt_page import ScriptPromptPage
+    from ui.retro_pong import RetroPongWidget
     # Import the new WhiteboardPage
     from widgets.pages.whiteboard_page import WhiteboardPage
     # Import the new VoiceTranscribeWidget
@@ -1048,6 +1049,7 @@ class VideoDownloader(QMainWindow):
         self.script_prompt_tab = ScriptPromptPage(self) # Add the new Script Prompt page
         self.whiteboard_tab = WhiteboardPage(self) # Add the new Whiteboard page
         self.voice_transcribe_tab = VoiceTranscribeWidget(self) # Add the new Voice Transcribe page
+        self.retro_pong_tab = RetroPongWidget(self)
 
         # --- Add items to navigation and pages to stacked widget ---
         # Use standard icons (names might vary slightly by OS/Qt theme plugin)
@@ -1081,6 +1083,7 @@ class VideoDownloader(QMainWindow):
             "Task Automation": (self.task_automation_tab, "preferences-system"), # Example icon
             "Settings": (self.settings_tab, "preferences-system"),
             "Whiteboard": (self.whiteboard_tab, "accessories-graphics"), # Add Whiteboard to pages
+            "Retro Pong Championship": (self.retro_pong_tab, "applications-games"),
         }
         
         # Ensure the loop iterates correctly and adds all pages
@@ -1099,6 +1102,7 @@ class VideoDownloader(QMainWindow):
             "Audio Recorder", "Clock", "Crypto Tracker", "Social Media", 
             "ChatGPT", "Games", "Task Automation", "Auto-Organise", 
             "Whiteboard", # Add Whiteboard to page order
+            "Retro Pong Championship",
             "Settings"
         ] # Define desired order including new page
 
@@ -1358,6 +1362,10 @@ class VideoDownloader(QMainWindow):
         video_player_action = QAction("Video Player", self)
         video_player_action.triggered.connect(lambda: self.switch_to_page(self.video_player_tab))
         view_menu.addAction(video_player_action)
+        # Retro Pong action
+        pong_action = QAction("Retro Pong Championship", self)
+        pong_action.triggered.connect(lambda: self.switch_to_page(self.retro_pong_tab))
+        view_menu.addAction(pong_action)
     
         # ChatGPT tab action
         chatgpt_action = QAction("ChatGPT", self)
