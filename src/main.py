@@ -2469,7 +2469,8 @@ class VideoDownloader(QMainWindow):
         if 0 <= current_index < self.nav_list.count():
             current_item = self.nav_list.item(current_index)
             current_name = current_item.text() if current_item else None
-            if current_name and current_name in self.dynamic_page_names:
+            # Allow removing any page except 'Settings'
+            if current_name and current_name != "Settings":
                 remove_action = QAction(f"Remove '{current_name}'", self)
                 remove_action.triggered.connect(lambda: self.remove_page_by_name(current_name))
                 menu.addAction(remove_action)
@@ -2512,15 +2513,25 @@ class VideoDownloader(QMainWindow):
         if not current_item:
             return
         name = current_item.text()
-        if name not in self.dynamic_page_names:
-            QMessageBox.information(self, "Protected Page", "Only custom pages can be removed from here.")
+        if name == "Settings":
+            QMessageBox.information(self, "Protected Page", "The Settings page cannot be removed.")
             return
         self.remove_page_by_name(name)
 
     def remove_page_by_name(self, name: str):
-        if name not in self.dynamic_page_names:
-            return
-        page_widget = self.dynamic_pages.get(name)
+        # Determine which widget to remove (dynamic or core)
+        if name in self.dynamic_page_names:
+            page_widget = self.dynamic_pages.get(name)
+        else:
+            # Core page
+            if name == "Settings":
+                QMessageBox.information(self, "Protected Page", "The Settings page cannot be removed.")
+                return
+            # Fetch from the master pages dictionary if available
+            page_widget = None
+            pages_dict = getattr(self, 'pages', {})
+            if name in pages_dict:
+                page_widget = pages_dict[name][0]
         if not page_widget:
             return
 
@@ -2543,8 +2554,10 @@ class VideoDownloader(QMainWindow):
                 self.nav_list.takeItem(i)
                 break
 
-        self.dynamic_page_names.discard(name)
-        self.dynamic_pages.pop(name, None)
+        # Clean up if dynamic; retain core pages in dictionary so they can be restored later if needed
+        if name in self.dynamic_page_names:
+            self.dynamic_page_names.discard(name)
+            self.dynamic_pages.pop(name, None)
 
         # Select first page if any remain
         if self.nav_list.count() > 0:
