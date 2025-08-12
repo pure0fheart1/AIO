@@ -18,6 +18,8 @@ class CanvasWidget(QWidget):
         super().__init__(parent)
         self.game = game
         self.surface = pygame.Surface((1280, 720))
+        self.setAttribute(Qt.WA_OpaquePaintEvent)
+        self.setAttribute(Qt.WA_NoSystemBackground)
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -25,8 +27,9 @@ class CanvasWidget(QWidget):
         if self.surface.get_width() != self.width() or self.surface.get_height() != self.height():
             self.surface = pygame.Surface((max(1, self.width()), max(1, self.height())))
         self.game.render(self.surface)
+        w, h = self.surface.get_width(), self.surface.get_height()
         raw = pygame.image.tostring(self.surface, 'RGB')
-        img = QImage(raw, self.surface.get_width(), self.surface.get_height(), QImage.Format_RGB888)
+        img = QImage(raw, w, h, w * 3, QImage.Format_RGB888).copy()  # own the data
         painter.drawImage(0, 0, img)
 
 
@@ -106,7 +109,7 @@ class RetroPongWidget(QWidget):
         self.last_time = now
         self.game.resize(max(100, self.canvas.width()), max(100, self.canvas.height()))
         self.game.update(dt)
-        self.update()  # triggers paintEvent
+        self.canvas.update()  # repaint only canvas
 
     def paintEvent(self, event):
         # No painting here; the CanvasWidget handles its own painting.
