@@ -46,9 +46,8 @@ class ArcadeLauncher(QWidget):
         if not item:
             return
         name = item.text()
-        main_py = os.path.join(self.project_root, 'games', name, 'main.py')
-        if os.path.isfile(main_py):
-            # Launch with system Python to isolate from the Qt loop
-            subprocess.Popen(['python', main_py], cwd=self.project_root)
+        # Launch as a module so absolute imports like 'games._shared...' work reliably
+        mod = f"games.{name}.main"
+        subprocess.Popen(['python', '-m', mod], cwd=self.project_root)
 
 
