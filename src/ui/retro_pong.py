@@ -12,6 +12,24 @@ import pygame
 from games.retro_pong_championship import RetroPong, Settings
 
 
+class CanvasWidget(QWidget):
+    """Dedicated canvas that owns its paintEvent to draw the pygame surface safely."""
+    def __init__(self, game: RetroPong, parent=None):
+        super().__init__(parent)
+        self.game = game
+        self.surface = pygame.Surface((1280, 720))
+
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        # Ensure surface matches current widget size
+        if self.surface.get_width() != self.width() or self.surface.get_height() != self.height():
+            self.surface = pygame.Surface((max(1, self.width()), max(1, self.height())))
+        self.game.render(self.surface)
+        raw = pygame.image.tostring(self.surface, 'RGB')
+        img = QImage(raw, self.surface.get_width(), self.surface.get_height(), QImage.Format_RGB888)
+        painter.drawImage(0, 0, img)
+
+
 class RetroPongWidget(QWidget):
     """Qt wrapper hosting a pygame-rendered surface inside the app.
 
@@ -27,8 +45,6 @@ class RetroPongWidget(QWidget):
         self.setMouseTracking(True)
 
         self.game = RetroPong(Settings())
-        self.surface = pygame.Surface((1280, 720))
-
         self.last_time = time.time()
         self.timer = QTimer(self)
         self.timer.timeout.connect(self._tick)
@@ -68,7 +84,7 @@ class RetroPongWidget(QWidget):
         top.addStretch(1)
         top.addWidget(self.back_btn)
 
-        self.canvas = QWidget()
+        self.canvas = CanvasWidget(self.game, self)
         self.canvas.setMinimumSize(QSize(640, 360))
 
         layout = QVBoxLayout(self)
@@ -93,12 +109,7 @@ class RetroPongWidget(QWidget):
         self.update()  # triggers paintEvent
 
     def paintEvent(self, event):
-        painter = QPainter(self.canvas)
-        self.surface = pygame.Surface((self.canvas.width(), self.canvas.height()))
-        self.game.render(self.surface)
-        # Convert pygame surface to QImage
-        raw = pygame.image.tostring(self.surface, 'RGB')
-        img = QImage(raw, self.surface.get_width(), self.surface.get_height(), QImage.Format_RGB888)
-        painter.drawImage(0, 0, img)
+        # No painting here; the CanvasWidget handles its own painting.
+        super().paintEvent(event)
 
 

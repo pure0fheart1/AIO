@@ -53,6 +53,7 @@ try:
     from ui.projects_page import ProjectPage
     from ui.script_prompt_page import ScriptPromptPage
     from ui.retro_pong import RetroPongWidget
+    from ui.arcade_launcher import ArcadeLauncher
     # Import the new WhiteboardPage
     from widgets.pages.whiteboard_page import WhiteboardPage
     # Import the new VoiceTranscribeWidget
@@ -1050,6 +1051,7 @@ class VideoDownloader(QMainWindow):
         self.whiteboard_tab = WhiteboardPage(self) # Add the new Whiteboard page
         self.voice_transcribe_tab = VoiceTranscribeWidget(self) # Add the new Voice Transcribe page
         self.retro_pong_tab = RetroPongWidget(self)
+        self.arcade_tab = ArcadeLauncher(project_root=os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
         # --- Add items to navigation and pages to stacked widget ---
         # Use standard icons (names might vary slightly by OS/Qt theme plugin)
@@ -1084,6 +1086,7 @@ class VideoDownloader(QMainWindow):
             "Settings": (self.settings_tab, "preferences-system"),
             "Whiteboard": (self.whiteboard_tab, "accessories-graphics"), # Add Whiteboard to pages
             "Retro Pong Championship": (self.retro_pong_tab, "applications-games"),
+            "Arcade": (self.arcade_tab, "applications-games"),
         }
         
         # Ensure the loop iterates correctly and adds all pages
@@ -1103,6 +1106,7 @@ class VideoDownloader(QMainWindow):
             "ChatGPT", "Games", "Task Automation", "Auto-Organise", 
             "Whiteboard", # Add Whiteboard to page order
             "Retro Pong Championship",
+            "Arcade",
             "Settings"
         ] # Define desired order including new page
 
@@ -1366,6 +1370,9 @@ class VideoDownloader(QMainWindow):
         pong_action = QAction("Retro Pong Championship", self)
         pong_action.triggered.connect(lambda: self.switch_to_page(self.retro_pong_tab))
         view_menu.addAction(pong_action)
+        arcade_action = QAction("Arcade", self)
+        arcade_action.triggered.connect(lambda: self.switch_to_page(self.arcade_tab))
+        view_menu.addAction(arcade_action)
     
         # ChatGPT tab action
         chatgpt_action = QAction("ChatGPT", self)
