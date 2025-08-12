@@ -969,6 +969,10 @@ class VideoDownloader(QMainWindow):
         self.save_directory = self.settings.value("downloadLocation", os.path.expanduser("~/Downloads"))
         
         self.pages_map = {} 
+        # Store pages created at runtime so they can be removed safely without
+        # impacting core pages that other actions reference.
+        self.dynamic_pages = {}
+        self.dynamic_page_names = set()
 
         self.setup_ui() 
         
@@ -1005,6 +1009,9 @@ class VideoDownloader(QMainWindow):
         self.nav_list.setIconSize(QSize(24, 24)) # Icon size
         # Basic styling will be applied via global stylesheet later
         self.nav_list.setProperty("class", "SideNav") # Add class for QSS targeting
+        # Enable context menu to add/remove pages
+        self.nav_list.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.nav_list.customContextMenuRequested.connect(self.show_nav_context_menu)
 
         # --- Create stacked widget for pages ---
         self.stacked_widget = QStackedWidget()
@@ -1357,6 +1364,15 @@ class VideoDownloader(QMainWindow):
         task_automation_action = QAction("Task Automation", self)
         task_automation_action.triggered.connect(lambda: self.switch_to_page(self.task_automation_tab))
         view_menu.addAction(task_automation_action)
+
+        # Pages menu (manage dynamic pages)
+        pages_menu = menu_bar.addMenu("Pages")
+        add_page_action = QAction("Add Page", self)
+        add_page_action.triggered.connect(self.add_custom_page)
+        pages_menu.addAction(add_page_action)
+        remove_page_action = QAction("Remove Current Page", self)
+        remove_page_action.triggered.connect(self.remove_current_page)
+        pages_menu.addAction(remove_page_action)
     
     def setup_toolbar(self):
         # Create toolbar
@@ -2439,6 +2455,100 @@ class VideoDownloader(QMainWindow):
             if not config_wants_collapse and is_icons_only:
                  self.navigation_tree.set_icons_only_mode(False)
                  print("Auto-expanding sidebar due to width and config.") # Optional debug
+
+    # ------------------------
+    # Dynamic Pages Management
+    # ------------------------
+    def show_nav_context_menu(self, position):
+        menu = QMenu(self)
+        add_action = QAction("Add Page", self)
+        add_action.triggered.connect(self.add_custom_page)
+        menu.addAction(add_action)
+
+        current_index = self.nav_list.currentRow()
+        if 0 <= current_index < self.nav_list.count():
+            current_item = self.nav_list.item(current_index)
+            current_name = current_item.text() if current_item else None
+            if current_name and current_name in self.dynamic_page_names:
+                remove_action = QAction(f"Remove '{current_name}'", self)
+                remove_action.triggered.connect(lambda: self.remove_page_by_name(current_name))
+                menu.addAction(remove_action)
+
+        menu.exec_(self.nav_list.mapToGlobal(position))
+
+    def add_custom_page(self):
+        name, ok = QInputDialog.getText(self, "Add Page", "Page name:")
+        if not ok or not name:
+            return
+        name = name.strip()
+        if not name:
+            return
+        if name in self.dynamic_page_names or name in getattr(self, 'pages', {}):
+            QMessageBox.warning(self, "Duplicate Page", f"A page named '{name}' already exists.")
+            return
+
+        page_widget = QWidget()
+        layout = QVBoxLayout(page_widget)
+        label = QLabel(f"Custom Page: {name}")
+        label.setAlignment(Qt.AlignCenter)
+        layout.addWidget(label)
+
+        self.dynamic_pages[name] = page_widget
+        self.dynamic_page_names.add(name)
+
+        self.stacked_widget.addWidget(page_widget)
+        item = QListWidgetItem(name)
+        icon = QIcon.fromTheme("applications-graphics")
+        if not icon.isNull():
+            item.setIcon(icon)
+        self.nav_list.addItem(item)
+        self.nav_list.setCurrentRow(self.nav_list.count() - 1)
+
+    def remove_current_page(self):
+        current_index = self.nav_list.currentRow()
+        if current_index < 0:
+            return
+        current_item = self.nav_list.item(current_index)
+        if not current_item:
+            return
+        name = current_item.text()
+        if name not in self.dynamic_page_names:
+            QMessageBox.information(self, "Protected Page", "Only custom pages can be removed from here.")
+            return
+        self.remove_page_by_name(name)
+
+    def remove_page_by_name(self, name: str):
+        if name not in self.dynamic_page_names:
+            return
+        page_widget = self.dynamic_pages.get(name)
+        if not page_widget:
+            return
+
+        reply = QMessageBox.question(self, "Remove Page",
+                                     f"Remove page '{name}'?",
+                                     QMessageBox.Yes | QMessageBox.No,
+                                     QMessageBox.No)
+        if reply != QMessageBox.Yes:
+            return
+
+        # Remove from stacked widget
+        for i in range(self.stacked_widget.count()):
+            if self.stacked_widget.widget(i) == page_widget:
+                self.stacked_widget.removeWidget(page_widget)
+                break
+
+        # Remove from nav list
+        for i in range(self.nav_list.count()):
+            if self.nav_list.item(i).text() == name:
+                self.nav_list.takeItem(i)
+                break
+
+        self.dynamic_page_names.discard(name)
+        self.dynamic_pages.pop(name, None)
+
+        # Select first page if any remain
+        if self.nav_list.count() > 0:
+            self.nav_list.setCurrentRow(0)
 
 class AutoOrganiseContent(QWidget):
     def __init__(self, parent=None):
