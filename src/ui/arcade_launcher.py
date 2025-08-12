@@ -48,6 +48,9 @@ class ArcadeLauncher(QWidget):
         name = item.text()
         # Launch as a module so absolute imports like 'games._shared...' work reliably
         mod = f"games.{name}.main"
-        subprocess.Popen(['python', '-m', mod], cwd=self.project_root)
+        env = os.environ.copy()
+        # Ensure project root is on PYTHONPATH so 'games' package is importable
+        env["PYTHONPATH"] = self.project_root + os.pathsep + env.get("PYTHONPATH", "")
+        subprocess.Popen(['python', '-m', mod], cwd=self.project_root, env=env)
 
 
