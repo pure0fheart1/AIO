@@ -45,6 +45,7 @@ try:
     from ui.information_library import InformationLibrary
     from ui.games import GamesManager
     from ui.video_player import VideoPlayer
+    from ui.brick_breaker_x import BrickBreakerXWidget
     from ui.chatgpt_integration import ChatGPTIntegration
     from ui.task_automation import TaskAutomation
     from ui.text_editor import TextEditor
@@ -1039,6 +1040,7 @@ class VideoDownloader(QMainWindow):
         self.info_library_tab = InformationLibrary(self)
         self.games_tab = GamesManager(self)
         self.video_player_tab = VideoPlayer(self)
+        self.brick_breaker_tab = BrickBreakerXWidget(self)
         self.chatgpt_tab = ChatGPTIntegration(self)
         self.task_automation_tab = TaskAutomation(self)
         self.text_to_audio_tab = TextToAudioWidget(self)
@@ -1074,6 +1076,7 @@ class VideoDownloader(QMainWindow):
             "Info Library": (self.info_library_tab, "help-contents"),
             "Games": (self.games_tab, "applications-games"),
             "Video Player": (self.video_player_tab, "media-playback-start"),
+            "Brick Breaker X": (self.brick_breaker_tab, "applications-games"),
             "ChatGPT": (self.chatgpt_tab, "preferences-desktop-online-accounts"), # Example icon
             "Task Automation": (self.task_automation_tab, "preferences-system"), # Example icon
             "Settings": (self.settings_tab, "preferences-system"),
@@ -1092,6 +1095,7 @@ class VideoDownloader(QMainWindow):
             "Documents", "Text Editor", "Text to Audio", "Script Prompts", "Voice Transcribe",
             "Checklists", "Transcripts", "Bookmarks", "Info Library", "Vocabulary Learner", 
             "Website Extractor", "Contacts", "Image Gallery", "Video Player", 
+            "Brick Breaker X",
             "Audio Recorder", "Clock", "Crypto Tracker", "Social Media", 
             "ChatGPT", "Games", "Task Automation", "Auto-Organise", 
             "Whiteboard", # Add Whiteboard to page order

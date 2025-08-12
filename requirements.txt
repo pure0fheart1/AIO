@@ -21,3 +21,4 @@ soundfile>=0.12.1
 gTTS>=2.3.2
 # playsound>=1.3.0 # Removed due to installation issues
 pyttsx3>=2.90 # For accessing system voices 
+pygame-ce>=2.5.2
